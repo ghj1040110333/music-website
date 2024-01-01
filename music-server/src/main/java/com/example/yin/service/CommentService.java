@@ -1,20 +1,20 @@
 package com.example.yin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.model.domain.Comment;
 import com.example.yin.model.request.CommentRequest;
 
 public interface CommentService extends IService<Comment> {
 
-    R addComment(CommentRequest addCommentRequest);
+    Result addComment(CommentRequest addCommentRequest);
 
-    R updateCommentMsg(CommentRequest upCommentRequest);
+    Result updateCommentMsg(CommentRequest upCommentRequest);
 
-    R deleteComment(Integer id);
+    Result deleteComment(Integer id);
 
-    R commentOfSongId(Integer songId);
+    Result commentOfSongId(Integer songId);
 
-    R commentOfSongListId(Integer songListId);
+    Result commentOfSongListId(Integer songListId);
 
 }

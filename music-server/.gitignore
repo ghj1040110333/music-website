@@ -13,8 +13,8 @@ target/
 .DS_Store
 ../img/
 ../song/
-img/
-song/
+../data/
+../data/song/
 logs/
 
 ### IntelliJ IDEA ###

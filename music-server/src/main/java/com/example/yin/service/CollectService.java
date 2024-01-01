@@ -1,17 +1,17 @@
 package com.example.yin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.model.domain.Collect;
 import com.example.yin.model.request.CollectRequest;
 
 public interface CollectService extends IService<Collect> {
 
-    R addCollection(CollectRequest addCollectRequest);
+    Result addCollection(CollectRequest addCollectRequest);
 
-    R existSongId(CollectRequest isCollectRequest);
+    Result existSongId(CollectRequest isCollectRequest);
 
-    R deleteCollect(Integer userId,Integer songId);
+    Result deleteCollect(Integer userId, Integer songId);
 
-    R collectionOfUser(Integer userId);
+    Result collectionOfUser(Integer userId);
 }

@@ -1,6 +1,6 @@
 package com.example.yin.controller;
 
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.model.request.ConsumerRequest;
 import com.example.yin.service.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ConsumerController {
      * 用户注册
      */
     @PostMapping("/user/add")
-    public R addUser(@RequestBody ConsumerRequest registryRequest) {
+    public Result addUser(@RequestBody ConsumerRequest registryRequest) {
         return consumerService.addUser(registryRequest);
     }
 
@@ -30,7 +30,7 @@ public class ConsumerController {
      * 登录判断
      */
     @PostMapping("/user/login/status")
-    public R loginStatus(@RequestBody ConsumerRequest loginRequest, HttpSession session) {
+    public Result loginStatus(@RequestBody ConsumerRequest loginRequest, HttpSession session) {
         return consumerService.loginStatus(loginRequest, session);
     }
 
@@ -39,7 +39,7 @@ public class ConsumerController {
      * 返回所有用户
      */
     @GetMapping("/user")
-    public R allUser() {
+    public Result allUser() {
         return consumerService.allUser();
     }
 
@@ -49,7 +49,7 @@ public class ConsumerController {
      * 返回指定 ID 的用户
      */
     @GetMapping("/user/detail")
-    public R userOfId(@RequestParam int id) {
+    public Result userOfId(@RequestParam int id) {
         return consumerService.userOfId(id);
     }
 
@@ -58,7 +58,7 @@ public class ConsumerController {
      * 删除用户
      */
     @GetMapping("/user/delete")
-    public R deleteUser(@RequestParam int id) {
+    public Result deleteUser(@RequestParam int id) {
         return consumerService.deleteUser(id);
     }
 
@@ -67,7 +67,7 @@ public class ConsumerController {
      * 更新用户信息
      */
     @PostMapping("/user/update")
-    public R updateUserMsg(@RequestBody ConsumerRequest updateRequest) {
+    public Result updateUserMsg(@RequestBody ConsumerRequest updateRequest) {
         return consumerService.updateUserMsg(updateRequest);
     }
 
@@ -76,7 +76,7 @@ public class ConsumerController {
      * 更新用户密码
      */
     @PostMapping("/user/updatePassword")
-    public R updatePassword(@RequestBody ConsumerRequest updatePasswordRequest) {
+    public Result updatePassword(@RequestBody ConsumerRequest updatePasswordRequest) {
         return consumerService.updatePassword(updatePasswordRequest);
     }
 
@@ -84,7 +84,7 @@ public class ConsumerController {
      * 更新用户头像
      */
     @PostMapping("/user/avatar/update")
-    public R updateUserPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
+    public Result updateUserPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id) {
         return consumerService.updateUserAvator(avatorFile, id);
     }
 }

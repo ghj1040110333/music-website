@@ -1,6 +1,6 @@
 package com.example.yin.controller;
 
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.model.request.CommentRequest;
 import com.example.yin.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,31 +14,31 @@ public class CommentController {
 
     // 提交评论
     @PostMapping("/comment/add")
-    public R addComment(@RequestBody CommentRequest addCommentRequest) {
+    public Result addComment(@RequestBody CommentRequest addCommentRequest) {
         return commentService.addComment(addCommentRequest);
     }
 
     // 删除评论
     @GetMapping("/comment/delete")
-    public R deleteComment(@RequestParam Integer id) {
+    public Result deleteComment(@RequestParam Integer id) {
         return commentService.deleteComment(id);
     }
 
     // 获得指定歌曲 ID 的评论列表
     @GetMapping("/comment/song/detail")
-    public R commentOfSongId(@RequestParam Integer songId) {
+    public Result commentOfSongId(@RequestParam Integer songId) {
         return commentService.commentOfSongId(songId);
     }
 
     // 获得指定歌单 ID 的评论列表
     @GetMapping("/comment/songList/detail")
-    public R commentOfSongListId(@RequestParam Integer songListId) {
+    public Result commentOfSongListId(@RequestParam Integer songListId) {
         return commentService.commentOfSongListId(songListId);
     }
 
     // 点赞
     @PostMapping("/comment/like")
-    public R commentOfLike(@RequestBody CommentRequest upCommentRequest) {
+    public Result commentOfLike(@RequestBody CommentRequest upCommentRequest) {
         return commentService.updateCommentMsg(upCommentRequest);
     }
 }

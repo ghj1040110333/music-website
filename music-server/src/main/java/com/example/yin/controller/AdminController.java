@@ -1,6 +1,6 @@
 package com.example.yin.controller;
 
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.model.request.AdminRequest;
 import com.example.yin.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class AdminController {
 
     // 判断是否登录成功
     @PostMapping("/admin/login/status")
-    public R loginStatus(@RequestBody AdminRequest adminRequest, HttpSession session) {
+    public Result loginStatus(@RequestBody AdminRequest adminRequest, HttpSession session) {
         return adminService.verityPasswd(adminRequest, session);
     }
 }

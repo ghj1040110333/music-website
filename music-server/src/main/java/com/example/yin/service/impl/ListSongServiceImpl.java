@@ -2,7 +2,7 @@ package com.example.yin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.mapper.ListSongMapper;
 import com.example.yin.model.domain.ListSong;
 import com.example.yin.model.request.ListSongRequest;
@@ -25,43 +25,43 @@ public class ListSongServiceImpl extends ServiceImpl<ListSongMapper, ListSong> i
     }
 
     @Override
-    public R updateListSongMsg(ListSongRequest updateListSongRequest) {
+    public Result updateListSongMsg(ListSongRequest updateListSongRequest) {
         ListSong listSong = new ListSong();
         BeanUtils.copyProperties(updateListSongRequest, listSong);
         if (listSongMapper.updateById(listSong) > 0) {
-            return R.success("修改成功");
+            return Result.success("修改成功");
         } else {
-            return R.error("修改失败");
+            return Result.error("修改失败");
         }
     }
 
     @Override
-    public R deleteListSong(Integer songId) {
+    public Result deleteListSong(Integer songId) {
         QueryWrapper<ListSong> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("song_id",songId);
         if (listSongMapper.delete(queryWrapper) > 0) {
-            return R.success("删除成功");
+            return Result.success("删除成功");
         } else {
-            return R.error("删除失败");
+            return Result.error("删除失败");
         }
     }
 
     @Override
-    public R addListSong(ListSongRequest addListSongRequest) {
+    public Result addListSong(ListSongRequest addListSongRequest) {
         ListSong listSong = new ListSong();
         BeanUtils.copyProperties(addListSongRequest, listSong);
         if (listSongMapper.insert(listSong) > 0) {
-            return R.success("添加成功");
+            return Result.success("添加成功");
         } else {
-            return R.error("添加失败");
+            return Result.error("添加失败");
         }
     }
 
     @Override
-    public R listSongOfSongId(Integer songListId) {
+    public Result listSongOfSongId(Integer songListId) {
         QueryWrapper<ListSong> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("song_list_id",songListId);
-        return R.success("查询成功", listSongMapper.selectList(queryWrapper));
+        return Result.success("查询成功", listSongMapper.selectList(queryWrapper));
     }
 
 }

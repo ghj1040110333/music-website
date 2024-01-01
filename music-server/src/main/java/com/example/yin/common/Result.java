@@ -7,7 +7,7 @@ import lombok.Data;
  * @Time : 2022/6/4 19:04
  **/
 @Data
-public class R {
+public class Result {
 
     private int code;
 
@@ -19,8 +19,8 @@ public class R {
 
     private Object data;
 
-    public static R success(String message) {
-        R r = new R();
+    public static Result success(String message) {
+        Result r = new Result();
         r.setCode(200);
         r.setMessage(message);
         r.setSuccess(true);
@@ -29,27 +29,27 @@ public class R {
         return r;
     }
 
-    public static R success(String message, Object data) {
-        R r = success(message);
+    public static Result success(String message, Object data) {
+        Result r = success(message);
         r.setData(data);
         return r;
     }
 
-    public static R warning(String message) {
-        R r = error(message);
+    public static Result warning(String message) {
+        Result r = error(message);
         r.setType("warning");
         return r;
     }
 
-    public static R error(String message) {
-        R r = success(message);
+    public static Result error(String message) {
+        Result r = success(message);
         r.setSuccess(false);
         r.setType("error");
         return r;
     }
 
-    public static R fatal(String message) {
-        R r = error(message);
+    public static Result fatal(String message) {
+        Result r = error(message);
         r.setCode(500);
         return r;
     }

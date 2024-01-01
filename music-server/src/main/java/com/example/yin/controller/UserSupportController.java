@@ -1,6 +1,6 @@
 package com.example.yin.controller;
 
-import com.example.yin.common.R;
+import com.example.yin.common.Result;
 import com.example.yin.model.request.UserSupportRequest;
 import com.example.yin.service.UserSupportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ public class UserSupportController {
     UserSupportService userSupportService;
 
     @PostMapping("/test")
-    public R isUserSupportComment(@RequestBody UserSupportRequest userSupportRequest) {
+    public Result isUserSupportComment(@RequestBody UserSupportRequest userSupportRequest) {
         return userSupportService.isUserSupportComment(userSupportRequest);
     }
 
     @PostMapping("/insert")
-    public R insertCommentSupport(@RequestBody UserSupportRequest userSupportRequest) {
+    public Result insertCommentSupport(@RequestBody UserSupportRequest userSupportRequest) {
         return userSupportService.insertCommentSupport(userSupportRequest);
     }
 
     @PostMapping("/delete")
-    public R deleteCommentSupport(@RequestBody UserSupportRequest userSupportRequest) {
+    public Result deleteCommentSupport(@RequestBody UserSupportRequest userSupportRequest) {
         return userSupportService.deleteCommentSupport(userSupportRequest);
     }
 }
