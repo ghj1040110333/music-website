@@ -26,6 +26,21 @@ services:
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
     privileged: true
+  redis:
+    image: redis:6.2.7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    volumes:
+      # 配置文件
+      - /data/redis/conf:/redis/config:rw
+      # 数据文件
+      - /data/redis/data/:/redis/data/:rw
+    command: "redis-server /redis/config/redis.conf"
+    privileged: true
   nginx-web:
     image: nginx:1.23.1
     container_name: nginx-web
@@ -57,10 +72,11 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+      - redis
     volumes:
       # 配置文件
       - /root/log/music/server1/logs/:/root/logs/musicWebsite
-      - /data/
+      - /data/music:/data/music
     privileged: true
 
   music-server-node-0:
@@ -77,5 +93,5 @@ services:
     volumes:
       # 配置文件
       - /root/log/music/server1/logs/:/root/logs/musicWebsite
-      - /data/
+      - /data/music:/data/music
     privileged: true
