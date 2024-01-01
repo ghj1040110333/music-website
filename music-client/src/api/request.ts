@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 
-const BASE_URL = process.env.NODE_HOST;
+const BASE_URL = process.env.NODE_HOST || 'music';
 
 axios.defaults.timeout = 5000; // 超时时间设置
 axios.defaults.withCredentials = true; // true允许跨域
@@ -11,53 +11,53 @@ axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded
 
 // 响应拦截器
 axios.interceptors.response.use(
-  (response) => {
-    // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
-    // 否则的话抛出错误
-    if (response.status === 200) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
-  },
-  // 服务器状态码不是2开头的的情况
-  (error) => {
-    if (error.response.status) {
-      switch (error.response.status) {
-        // 401: 未登录
-        case 401:
-          router.replace({
-            path: "/",
-            query: {
-              // redirect: router.currentRoute.fullPath
-            },
-          });
-          break;
-        case 403:
-          // console.log('管理员权限已修改请重新登录')
-          // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
-          setTimeout(() => {
-            router.replace({
-              path: "/",
-              query: {
-                // redirect: router.currentRoute.fullPath
-              },
-            });
-          }, 1000);
-          break;
+    (response) => {
+        // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
+        // 否则的话抛出错误
+        if (response.status === 200) {
+            return Promise.resolve(response);
+        } else {
+            return Promise.reject(response);
+        }
+    },
+    // 服务器状态码不是2开头的的情况
+    (error) => {
+        if (error.response.status) {
+            switch (error.response.status) {
+                // 401: 未登录
+                case 401:
+                    router.replace({
+                        path: "/",
+                        query: {
+                            // redirect: router.currentRoute.fullPath
+                        },
+                    });
+                    break;
+                case 403:
+                    // console.log('管理员权限已修改请重新登录')
+                    // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
+                    setTimeout(() => {
+                        router.replace({
+                            path: "/",
+                            query: {
+                                // redirect: router.currentRoute.fullPath
+                            },
+                        });
+                    }, 1000);
+                    break;
 
-        // 404请求不存在
-        case 404:
-          // console.log('请求页面飞到火星去了')
-          break;
-      }
-      return Promise.reject(error.response);
+                // 404请求不存在
+                case 404:
+                    // console.log('请求页面飞到火星去了')
+                    break;
+            }
+            return Promise.reject(error.response);
+        }
     }
-  }
 );
 
 export function getBaseURL() {
-  return BASE_URL;
+    return BASE_URL;
 }
 
 /**
@@ -67,12 +67,12 @@ export function getBaseURL() {
  * @returns {Promise}
  */
 export function get(url, params?: object) {
-  return new Promise((resolve, reject) => {
-    axios.get(url, params).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
-    );
-  });
+    return new Promise((resolve, reject) => {
+        axios.get(getBaseURL() + url, params).then(
+            (response) => resolve(response.data),
+            (error) => reject(error)
+        );
+    });
 }
 
 /**
@@ -82,12 +82,12 @@ export function get(url, params?: object) {
  * @returns {Promise}
  */
 export function post(url, data = {}) {
-  return new Promise((resolve, reject) => {
-    axios.post(url, data).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
-    );
-  });
+    return new Promise((resolve, reject) => {
+        axios.post(getBaseURL() + url, data).then(
+            (response) => resolve(response.data),
+            (error) => reject(error)
+        );
+    });
 }
 
 /**
@@ -97,12 +97,12 @@ export function post(url, data = {}) {
  * @returns {Promise}
  */
 export function deletes(url, data = {}) {
-  return new Promise((resolve, reject) => {
-    axios.delete(url, data).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
-    );
-  });
+    return new Promise((resolve, reject) => {
+        axios.delete(getBaseURL() + url, data).then(
+            (response) => resolve(response.data),
+            (error) => reject(error)
+        );
+    });
 }
 
 /**
@@ -112,10 +112,10 @@ export function deletes(url, data = {}) {
  * @returns {Promise}
  */
 export function put(url, data = {}) {
-  return new Promise((resolve, reject) => {
-    axios.put(url, data).then(
-      (response) => resolve(response.data),
-      (error) => reject(error)
-    );
-  });
+    return new Promise((resolve, reject) => {
+        axios.put(getBaseURL() + url, data).then(
+            (response) => resolve(response.data),
+            (error) => reject(error)
+        );
+    });
 }
