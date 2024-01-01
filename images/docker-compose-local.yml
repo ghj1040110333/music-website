@@ -93,5 +93,5 @@ services:
     volumes:
       # 配置文件
       - ./server/log2/music/server1/logs/:/root/logs/musicWebsite
-      - ./../data/
+      - ./../data/:/data/music
     privileged: true
