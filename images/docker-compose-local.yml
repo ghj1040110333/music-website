@@ -1,5 +1,5 @@
 version: '3.6'
-name: music_app
+name: music_app-local
 services:
   mysql:
     image: mysql:8.0.31
@@ -12,7 +12,7 @@ services:
       # root 密码
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - "13306:3306"
     volumes:
       # 数据挂载
       - ./mysql/data/:/var/lib/mysql/
@@ -25,6 +25,21 @@ services:
       --collation-server=utf8mb4_general_ci
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
+    privileged: true
+  redis:
+    image: redis:6.2.7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    volumes:
+      # 配置文件
+      - ./redis/conf:/redis/config:rw
+      # 数据文件
+      - ./redis/data/:/redis/data/:rw
+    command: "redis-server /redis/config/redis.conf"
     privileged: true
   nginx-web:
     image: nginx:1.23.1
@@ -57,10 +72,11 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+      - redis
     volumes:
       # 配置文件
       - ./server/log1/music/server1/logs/:/root/logs/musicWebsite
-      - ./data/
+      - ./../data/:/data/music
     privileged: true
 
   music-server-node-0:
@@ -77,5 +93,5 @@ services:
     volumes:
       # 配置文件
       - ./server/log2/music/server1/logs/:/root/logs/musicWebsite
-      - /data/
+      - ./../data/
     privileged: true
