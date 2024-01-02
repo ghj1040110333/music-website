@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 
-const BASE_URL = process.env.NODE_HOST || 'music';
+const BASE_URL = process.env.NODE_HOST;
 
 axios.defaults.timeout = 5000; // 超时时间设置
 axios.defaults.withCredentials = true; // true允许跨域
@@ -57,7 +57,7 @@ axios.interceptors.response.use(
 );
 
 export function getBaseURL() {
-    return BASE_URL;
+    return 'music';
 }
 
 /**
@@ -68,7 +68,7 @@ export function getBaseURL() {
  */
 export function get(url, params?: object) {
     return new Promise((resolve, reject) => {
-        axios.get(getBaseURL() + url, params).then(
+        axios.get(getBaseURL() + "/" + url, params).then(
             (response) => resolve(response.data),
             (error) => reject(error)
         );
@@ -83,7 +83,7 @@ export function get(url, params?: object) {
  */
 export function post(url, data = {}) {
     return new Promise((resolve, reject) => {
-        axios.post(getBaseURL() + url, data).then(
+        axios.post(getBaseURL() + "/" + url, data).then(
             (response) => resolve(response.data),
             (error) => reject(error)
         );
@@ -98,7 +98,7 @@ export function post(url, data = {}) {
  */
 export function deletes(url, data = {}) {
     return new Promise((resolve, reject) => {
-        axios.delete(getBaseURL() + url, data).then(
+        axios.delete(getBaseURL() + "/" + url, data).then(
             (response) => resolve(response.data),
             (error) => reject(error)
         );
@@ -113,7 +113,7 @@ export function deletes(url, data = {}) {
  */
 export function put(url, data = {}) {
     return new Promise((resolve, reject) => {
-        axios.put(getBaseURL() + url, data).then(
+        axios.put(getBaseURL() + "/" + url, data).then(
             (response) => resolve(response.data),
             (error) => reject(error)
         );
