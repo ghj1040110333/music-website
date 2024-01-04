@@ -1,7 +1,7 @@
 export default {
   state: {
-    userId: "", // ID
-    username: "", // 名字
+    userId: "1", // ID
+    username: "李云龙", // 名字
     userPic: "", // 图片
   },
   getters: {
