@@ -20,7 +20,7 @@ module.exports = defineConfig({
   chainWebpack: config => {
     config.plugin('define').tap(definitions => {
       Object.assign(definitions[0]['process.env'], {
-        NODE_HOST: '"http://20.46.77.1:8080"',
+        NODE_HOST: '"http://120.46.77.1:8080"',
       });
       return definitions;
     });
